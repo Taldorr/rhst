@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "29863137632",
+    "project_id": "rhst-app",
+    "storage_bucket": "rhst-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29863137632:android:8c54794e84bcb5be3a8e05",
+        "android_client_info": {
+          "package_name": "com.example.rhst"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29863137632-3fkuagn6b3epj6n8s9v6mfemk5014b3n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv7cdPpT2IBCNgisz3-FbaxeTJIbFXuG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29863137632-3fkuagn6b3epj6n8s9v6mfemk5014b3n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "29863137632-mge243jtfgp8mfnlcfudfqa4ajeotm3u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rhst"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

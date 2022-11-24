@@ -1,0 +1,10 @@
+{
+    "gitConfigUser.profiles": [
+        {
+            "label": "Privat",
+            "email": "carlo@async-software.de",
+            "userName": "Taldorr",
+            "selected": false
+        }
+    ]
+}
