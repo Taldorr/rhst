@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rhst/attendance/bloc/bloc.dart';
 import 'package:rhst/attendance/widgets/attendance_body.dart';
+import 'package:rhst/widgets/rhst_scrollable_page_wrapper.dart';
 
 import '../repositories/attendance_repository.dart';
 
@@ -14,8 +15,9 @@ class AttendancePage extends StatelessWidget {
       child: BlocProvider(
         create: (context) => AttendanceBloc(RepositoryProvider.of<AttendanceRepository>(context))
           ..add(const LoadAttendanceEvent()),
-        child: const Scaffold(
-          body: AttendanceBody(),
+        child: const RHSTScrollablePageWrapper(
+          showNavbar: true,
+          child: AttendanceBody(),
         ),
       ),
     );

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:rhst/auth/auth.dart';
 import 'package:rhst/constants.dart';
+import 'package:rhst/styles.dart';
 import 'package:rhst/widgets/rhst_form.dart';
+import 'package:rhst/widgets/rhst_scrollable_page_wrapper.dart';
+import 'package:rhst/widgets/rhst_text_input.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -20,33 +22,47 @@ class ForgotPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(Constants.defaultSpace),
-          child: SingleChildScrollView(
-            child: Column(
+    return RHSTScrollablePageWrapper(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Constants.defaultSpace * 4),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: Styles.rhstLogoShadows,
+              ),
+              child: Image.asset("assets/rhst_logo_transparent.png"),
+            ),
+            Column(
               children: [
-                Image.asset("assets/logo.png"),
                 RHSTForm(
                   onSubmit: (values) => _onSubmit(context, values),
                   buttonLabel: "Reset Password",
                   children: [
-                    FormBuilderTextField(
+                    RHSTTextInput(
                       name: "email",
+                      hint: "Email",
                       textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(hintText: "Email-Adresse"),
-                      validator: FormBuilderValidators.required(),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.email(),
+                      ]),
                     ),
                   ],
                 ),
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text("Zurück"),
+                  child: Text(
+                    "Zurück",
+                    style: Styles.light,
+                  ),
                 ),
               ],
             ),
-          ),
+          ],
         ),
       ),
     );

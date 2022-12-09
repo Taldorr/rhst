@@ -21,6 +21,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       final attendances = await _attendanceRepository.getAllAttendances();
       emit(AttendanceState(attendances: attendances));
     } catch (e) {
+      print(e);
       SnackbarService().display("Ein Fehler ist aufgetreten: $e", isError: true);
     }
   }

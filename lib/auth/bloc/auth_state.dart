@@ -3,16 +3,28 @@
 part of 'auth_bloc.dart';
 
 class AuthState extends Equatable {
-  const AuthState({this.user});
+  const AuthState({this.user, this.settings, this.isLoading = false});
+
+  final bool isLoading;
 
   // FirebaseAuth's User object of the currently signed in user
   final User? user;
 
-  @override
-  List<Object?> get props => [user];
+  final UserSettings? settings;
 
-  AuthState copyWith({User? user}) {
-    return AuthState(user: user ?? this.user);
+  @override
+  List<Object?> get props => [user, settings, isLoading];
+
+  AuthState copyWith({
+    User? user,
+    UserSettings? settings,
+    bool? isLoading,
+  }) {
+    return AuthState(
+      user: user ?? this.user,
+      settings: settings ?? this.settings,
+      isLoading: isLoading ?? this.isLoading,
+    );
   }
 }
 

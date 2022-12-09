@@ -12,6 +12,7 @@ class AttendanceRepository {
       .get()
       .then((snap) => snap.docs.map((d) => Attendance.fromJson(d.data())).toList());
 
-  Future<void> updateAttendance(String userId, int? notAvailableUntil) =>
-      _firestore.doc("attendance/$userId").update({"notAvailableUntil": notAvailableUntil});
+  Future<void> updateAttendance(String userId, int? notAvailableUntil) => _firestore
+      .doc("attendance/$userId")
+      .set({"notAvailableUntil": notAvailableUntil}, SetOptions(merge: true));
 }

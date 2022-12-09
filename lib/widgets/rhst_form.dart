@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:rhst/widgets/rhst_primary_button.dart';
 
 import 'rhst_spacer.dart';
 
@@ -10,12 +11,14 @@ class RHSTForm extends StatefulWidget {
   final Map<String, dynamic> initialValues;
   final void Function(Map<String, dynamic> values) onSubmit;
   final CrossAxisAlignment? crossAxisAlignment;
+  final MainAxisAlignment? mainAxisAlignment;
   const RHSTForm(
       {Key? key,
       required this.children,
       this.initialValues = const {},
       required this.onSubmit,
       this.crossAxisAlignment,
+      this.mainAxisAlignment,
       required this.buttonLabel})
       : super(key: key);
 
@@ -45,6 +48,8 @@ class _RHSTFormState extends State<RHSTForm> {
       autovalidateMode:
           _didTrySubmit ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.start,
         crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.center,
         children: [
           ...widget.children,
@@ -53,11 +58,11 @@ class _RHSTFormState extends State<RHSTForm> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: ElevatedButton(
-                  onPressed: _validateAndSubmitData,
-                  child: Text(widget.buttonLabel),
-                ),
-              ),
+                  child: RHSTPrimaryButton(
+                onPressed: _validateAndSubmitData,
+                label: widget.buttonLabel,
+                icon: Icons.check,
+              )),
             ],
           ),
         ],

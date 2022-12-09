@@ -44,3 +44,11 @@ class UserUpdatedAuthEvent extends AuthEvent {
   @override
   List<Object> get props => [];
 }
+
+class UpdateSettingsAuthEventEvent extends AuthEvent {
+  final UserSettings settings;
+  const UpdateSettingsAuthEventEvent(this.settings);
+
+  @override
+  List<Object> get props => [settings];
+}

@@ -3,6 +3,7 @@ import 'package:rhst/main_dev.dart';
 
 class SnackbarService {
   void display(String text, {bool isError = false}) {
+    print(text);
     snackbarKey.currentState?.showSnackBar(
       SnackBar(
         backgroundColor: isError ? Colors.red : Colors.green,
