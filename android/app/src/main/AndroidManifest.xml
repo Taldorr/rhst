@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rhst">
+    package="de.async_software.rhst">
    <application
         android:label="rhst"
         android:name="${applicationName}"
