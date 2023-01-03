@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-
 import 'package:rhst/auth/auth.dart';
 import 'package:rhst/constants.dart';
 import 'package:rhst/styles.dart';
@@ -32,13 +31,17 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                boxShadow: Styles.rhstLogoShadows,
+            Expanded(
+              child: Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: Styles.rhstLogoShadows,
+                  ),
+                  child: Image.asset("assets/rhst_logo_transparent.png"),
+                ),
               ),
-              child: Image.asset("assets/rhst_logo_transparent.png"),
             ),
             Column(
               children: [

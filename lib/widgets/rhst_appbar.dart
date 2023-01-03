@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rhst/constants.dart';
+import 'package:rhst/styles.dart';
 
 class RHSTAppBar extends StatelessWidget {
   final void Function()? onBack;
@@ -15,18 +16,28 @@ class RHSTAppBar extends StatelessWidget {
           onTap: onBack ?? () => Navigator.of(context).pop(),
           child: const ImageIcon(
             AssetImage("assets/icons/arrow_left.png"),
-            size: 30,
+            size: 56,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: Constants.defaultSpace * 2.5),
-          child: Image.asset("assets/icons/rhst_logo_small.png", height: 80),
+          padding: const EdgeInsets.only(top: Constants.defaultSpace),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: Styles.rhstLogoShadows,
+            ),
+            child: Image.asset(
+              "assets/rhst_logo_transparent.png",
+              height: 88,
+            ),
+          ),
         ),
         GestureDetector(
           onTap: () => Navigator.of(context).pushNamed("settings"),
           child: const ImageIcon(
             AssetImage("assets/icons/profile.png"),
-            size: 30,
+            size: 56,
           ),
         ),
       ],

@@ -23,16 +23,23 @@ class ProfilesBody extends StatelessWidget {
                 vertical: Constants.defaultSpace * 3,
               ),
               child: RHSTCard(
-                padding: Constants.defaultSpace * 2,
+                paddingAll: Constants.defaultSpace * 2,
                 inverse: true,
                 child: Column(
                   children: [
-                    Text(
-                      "Hundestaffel Hamburg Altona-Mitte",
-                      style: Styles.headline,
-                      textAlign: TextAlign.center,
+                    FittedBox(
+                      child: Text(
+                        "Hundestaffel Hamburg\nAltona-Mitte",
+                        style: Styles.headline,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    const Text("Schön, dass es euch gibt!", style: Styles.subHeadline),
+                    const FittedBox(
+                      child: Text(
+                        "Schön, dass es euch gibt!",
+                        style: Styles.subHeadline,
+                      ),
+                    ),
                   ],
                 ),
               ),

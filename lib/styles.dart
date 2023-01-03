@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Styles {
   static List<BoxShadow> rhstLogoShadows = [
@@ -75,14 +75,14 @@ class Styles {
 
   static final TextStyle headline = TextStyle(
     color: RHSTColors.primary[700],
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
     fontSize: 30,
   );
 
   static const TextStyle subHeadline = TextStyle(
     color: Colors.black,
-    fontWeight: FontWeight.w600,
-    fontSize: 26,
+    fontWeight: FontWeight.w500,
+    fontSize: 24,
   );
 
   static final TextStyle paragraph = TextStyle(
@@ -90,9 +90,25 @@ class Styles {
     fontSize: 16,
   );
 
+  static final TextStyle footer = TextStyle(
+    color: RHSTColors.neutral[500],
+    fontSize: 12,
+  );
+
   static final TextStyle light = TextStyle(
     color: RHSTColors.neutral[400],
     fontWeight: FontWeight.normal,
+  );
+
+  static final TextStyle errorText = TextStyle(
+    color: RHSTColors.error[500],
+    fontSize: 12,
+  );
+
+  static final TextStyle comingSoon = TextStyle(
+    color: RHSTColors.error[500],
+    fontSize: 40,
+    fontWeight: FontWeight.w700,
   );
 }
 

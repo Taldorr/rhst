@@ -1,7 +1,8 @@
 import 'package:control_style/decorated_input_border.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:rhst/styles.dart';
+import 'package:rhst/widgets/rhst_spacer.dart';
 
 class RHSTTextInput extends StatelessWidget {
   final String name;
@@ -23,33 +24,50 @@ class RHSTTextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilderTextField(
+    final depth = NeumorphicTheme.of(context)!.value.theme.depth;
+    return FormBuilderField<String>(
       name: name,
-      textInputAction: textInputAction ?? TextInputAction.done,
-      onSubmitted: onSubmitted,
       validator: validator,
-      obscureText: obscureText,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 16,
-        color: RHSTColors.neutral[800],
-      ),
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        hintStyle: TextStyle(
-          color: RHSTColors.neutral[500],
-          fontSize: 16,
-        ),
-        hintText: hint,
-        fillColor: RHSTColors.neutral[100],
-        filled: true,
-        border: DecoratedInputBorder(
-          child: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: Styles.borderRadiusInput,
+      onSaved: onSubmitted,
+      builder: (field) => Column(
+        children: [
+          Neumorphic(
+            style: NeumorphicStyle(
+              depth: field.value?.isEmpty ?? true ? depth : -depth,
+            ),
+            child: TextField(
+              textInputAction: textInputAction ?? TextInputAction.done,
+              onChanged: (value) => field.didChange(value),
+              obscureText: obscureText,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: RHSTColors.neutral[800],
+              ),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                hintStyle: TextStyle(
+                  color: RHSTColors.neutral[500],
+                  fontSize: 16,
+                ),
+                hintText: hint,
+                fillColor: RHSTColors.neutral[100],
+                filled: true,
+                border: DecoratedInputBorder(
+                  child: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: Styles.borderRadiusInput,
+                  ),
+                ),
+              ),
+            ),
           ),
-          shadow: Styles.rhstOuterShadows,
-        ),
+          const RHSTSpacer(1),
+          Text(
+            field.errorText ?? "",
+            style: Styles.errorText,
+          ),
+        ],
       ),
     );
   }

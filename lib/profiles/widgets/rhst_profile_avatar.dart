@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:rhst/styles.dart';
 import 'package:rhst/widgets/rhst_resolved_image.dart';
+import 'package:rhst/widgets/rhst_spacer.dart';
 
-class ProfileAvatar extends StatelessWidget {
+class RHSTProfileAvatar extends StatelessWidget {
   final String name;
   final String? imagePath;
-  const ProfileAvatar({Key? key, required this.name, this.imagePath}) : super(key: key);
+  const RHSTProfileAvatar({Key? key, required this.name, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(name, style: Styles.paragraph),
-        Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(3, 3),
-                blurRadius: 5,
-                color: Colors.black.withOpacity(0.25),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(100),
-            color: Colors.white,
-          ),
-          child: imagePath != null
-              ? SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: ClipOval(
-                    child: ResolvedImage(path: imagePath!),
+        Flexible(
+          child: AspectRatio(
+            aspectRatio: 1.0,
+            child: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(3, 3),
+                    blurRadius: 5,
+                    color: Colors.black.withOpacity(0.25),
                   ),
-                )
-              : Image.asset("assets/icons/profile.png"),
-        )
+                ],
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.white,
+              ),
+              child: ClipOval(
+                child: ResolvedImage(path: imagePath),
+              ),
+            ),
+          ),
+        ),
+        const RHSTSpacer(1),
+        FittedBox(child: Text(name, style: Styles.paragraph)),
       ],
     );
   }

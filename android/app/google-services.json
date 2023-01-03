@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:29863137632:android:5dee3a27e58673093a8e05",
+        "mobilesdk_app_id": "1:29863137632:android:b6e3b5de8969654a3a8e05",
         "android_client_info": {
           "package_name": "de.async_software.rhst"
         }
@@ -34,7 +34,7 @@
               "client_id": "29863137632-mge243jtfgp8mfnlcfudfqa4ajeotm3u.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "de.async_software.rhst"
+                "bundle_id": "com.example.rhst"
               }
             }
           ]

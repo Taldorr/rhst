@@ -6,6 +6,12 @@
         "program": "${cwd}/lib/main_dev.dart",
         "request": "launch",
         "type": "dart"
+      },
+      {
+        "name": "PROD-Flavor",
+        "program": "${cwd}/lib/main_prod.dart",
+        "request": "launch",
+        "type": "dart"
       }
     ]
   }

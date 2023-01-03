@@ -1,6 +1,6 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rhst/auth/bloc/auth_bloc.dart';
 import 'package:rhst/constants.dart';
 import 'package:rhst/styles.dart';
@@ -12,9 +12,9 @@ class SettingsBody extends StatelessWidget {
   const SettingsBody({super.key});
 
   _selectNewImage(BuildContext context) {
-    FilePicker.platform.pickFiles(allowMultiple: false).then((result) {
+    ImagePicker().pickImage(source: ImageSource.gallery).then((result) {
       if (result == null) return;
-      final path = result.files.single.path!;
+      final path = result.path;
       context.read<AuthBloc>().updateProfilePicture(path);
     });
   }

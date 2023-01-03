@@ -12,15 +12,17 @@ class RHSTForm extends StatefulWidget {
   final void Function(Map<String, dynamic> values) onSubmit;
   final CrossAxisAlignment? crossAxisAlignment;
   final MainAxisAlignment? mainAxisAlignment;
-  const RHSTForm(
-      {Key? key,
-      required this.children,
-      this.initialValues = const {},
-      required this.onSubmit,
-      this.crossAxisAlignment,
-      this.mainAxisAlignment,
-      required this.buttonLabel})
-      : super(key: key);
+  final Widget? secondaryButton;
+  const RHSTForm({
+    Key? key,
+    required this.children,
+    this.initialValues = const {},
+    required this.onSubmit,
+    this.crossAxisAlignment,
+    this.mainAxisAlignment,
+    required this.buttonLabel,
+    this.secondaryButton,
+  }) : super(key: key);
 
   @override
   State<RHSTForm> createState() => _RHSTFormState();
@@ -54,6 +56,14 @@ class _RHSTFormState extends State<RHSTForm> {
         children: [
           ...widget.children,
           const RHSTSpacer(5),
+          if (widget.secondaryButton != null)
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(child: widget.secondaryButton!),
+              ],
+            ),
+          if (widget.secondaryButton != null) const RHSTSpacer(2),
           Row(
             mainAxisSize: MainAxisSize.max,
             children: [

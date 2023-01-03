@@ -14,19 +14,36 @@ class AttendanceListElement extends StatelessWidget {
 
   final Attendance attendance;
 
+  bool _isAvailable(Attendance attendance) {
+    if (attendance.notAvailableUntil == null) return true;
+    if (attendance.notAvailableFrom == null) return false;
+    if (attendance.notAvailableFrom!.toDate().isBefore(DateTime.now()) &&
+        attendance.notAvailableUntil!.toDate().isAfter(DateTime.now())) return false;
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool isAvailable = attendance.notAvailableUntil?.toDate().isBefore(DateTime.now()) ?? true;
+    bool isAvailable = _isAvailable(attendance);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: Constants.defaultSpace),
+      padding: const EdgeInsets.symmetric(vertical: Constants.defaultSpace * 0.5),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _displayAvailability(isAvailable),
           const RHSTSpacer(1.5),
-          Text(attendance.displayName),
+          Text(
+            attendance.displayName,
+            style: Styles.paragraph.copyWith(
+              color: RHSTColors.neutral[800],
+            ),
+          ),
           const Spacer(),
-          Text(isAvailable ? "" : attendance.notAvailableUntil!.toLocalString())
+          Text(
+            isAvailable ? "" : attendance.notAvailableUntil!.toLocalDayString(),
+            style: Styles.footer,
+          )
         ],
       ),
     );

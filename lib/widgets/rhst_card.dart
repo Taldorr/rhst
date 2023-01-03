@@ -1,24 +1,30 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:rhst/styles.dart';
-import 'package:rhst/widgets/rhst_card_inverse.dart';
 
 class RHSTCard extends StatelessWidget {
   final Widget? child;
-  final double? padding;
+  final double? paddingAll;
+  final EdgeInsets? padding;
   final bool inverse;
-  const RHSTCard({Key? key, this.child, this.padding, this.inverse = false}) : super(key: key);
+  final Color? color;
+  const RHSTCard({
+    Key? key,
+    this.child,
+    this.paddingAll,
+    this.inverse = false,
+    this.padding,
+    this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (inverse) {
-      return RHSTInverseCard(padding: padding, child: child);
-    }
-    return Container(
-      padding: EdgeInsets.all(padding ?? 0),
-      decoration: BoxDecoration(
-        borderRadius: Styles.borderRadiusCard,
-        boxShadow: Styles.rhstOuterShadows,
-        color: RHSTColors.neutral[100],
+    final depth = NeumorphicTheme.of(context)!.value.theme.depth;
+    return Neumorphic(
+      padding: padding ?? EdgeInsets.all(paddingAll ?? 0),
+      style: NeumorphicStyle(
+        color: color ?? RHSTColors.neutral[100],
+        boxShape: NeumorphicBoxShape.roundRect(Styles.borderRadiusCard),
+        depth: inverse ? -depth : depth,
       ),
       child: child,
     );

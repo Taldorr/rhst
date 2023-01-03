@@ -1,0 +1,19 @@
+{
+  "name": "avatars/3.JPG",
+  "bucket": "rhst-app.appspot.com",
+  "metageneration": 1,
+  "generation": 1670945489613,
+  "contentType": "image/jpeg",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "62d11909-fb1c-44e2-b69c-32c3c897b18b"
+  ],
+  "etag": "fbOK5xShdkRjWk9YWBQ8Yefp3JU",
+  "customMetadata": {},
+  "timeCreated": "2022-12-13T15:31:29.614Z",
+  "updated": "2022-12-13T15:31:29.614Z",
+  "size": 525744,
+  "md5Hash": "IRffq3lHyZQABlApCXGX3Q==",
+  "crc32c": "2551090588"
+}

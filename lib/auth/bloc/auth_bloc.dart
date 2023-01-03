@@ -9,6 +9,7 @@ import 'package:rhst/util/snackbar_service.dart';
 import 'package:rhst/util/storage_service.dart';
 
 import '../models/user_settings.dart';
+
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -23,8 +24,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginAuthEvent>(_onLoginAuthEvent);
     on<ResetPasswordAuthEvent>(_onResetPasswordAuthEvent);
     on<LogoutAuthEvent>(_onLogoutAuthEvent);
-    on<UpdateSettingsAuthEventEvent>(_onUpdateSettingsAuthEvent);
+    on<LoadSettingsAuthEvent>(_onLoadSettingsAuthEvent);
+    on<UpdateSettingsAuthEvent>(_onUpdateSettingsAuthEvent);
   }
+
+  User? get user => state.user;
 
   void _onInitAuthEvent(InitAuthEvent event, Emitter<AuthState> emit) {
     _currentUserSub = _authRepository.$currentUser.listen((currentUser) {
@@ -35,11 +39,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _onUserUpdatedAuthEvent(UserUpdatedAuthEvent event, Emitter<AuthState> emit) async {
     if (event.user != null) {
       SnackbarService().display("Login erfolgreich");
-      final settings = await _authRepository.loadSettings(event.user!.uid);
-      emit(AuthState(user: event.user, settings: settings));
-    } else {
-      emit(AuthState(user: event.user));
+      add(LoadSettingsAuthEvent(event.user!.uid));
     }
+    emit(AuthState(user: event.user));
   }
 
   Future<void> _onLoginAuthEvent(LoginAuthEvent event, Emitter<AuthState> emit) async {
@@ -69,8 +71,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SnackbarService().display("Email versendet");
   }
 
+  Future<void> _onLoadSettingsAuthEvent(
+      LoadSettingsAuthEvent event, Emitter<AuthState> emit) async {
+    try {
+      emit(state.copyWith(isLoading: true));
+      final settings = await _authRepository.loadSettings(event.userId);
+      emit(state.copyWith(settings: settings, isLoading: false));
+    } catch (e) {
+      SnackbarService().display("Ein Fehler ist aufgetreten: $e", isError: true);
+    }
+  }
+
   Future<void> _onUpdateSettingsAuthEvent(
-      UpdateSettingsAuthEventEvent event, Emitter<AuthState> emit) async {
+      UpdateSettingsAuthEvent event, Emitter<AuthState> emit) async {
     try {
       emit(state.copyWith(isLoading: true));
       _authRepository.updateSettings(state.user!.uid, event.settings);
@@ -82,8 +95,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void updateProfilePicture(String filePath) async {
     final userId = state.user!.uid;
-    StorageService.uploadProfilePicture(userId, File(filePath))?.then((_) {
-      add(UpdateSettingsAuthEventEvent(state.settings!));
+    StorageService.uploadHumanProfilePicture(userId, File(filePath))?.then((_) {
+      add(UpdateSettingsAuthEvent(state.settings!.copyWith(profilePicPath: "avatars/$userId")));
     });
   }
 

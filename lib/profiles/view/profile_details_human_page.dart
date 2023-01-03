@@ -16,7 +16,7 @@ class ProfileDetailsHumanPage extends StatelessWidget {
             "Profil",
             textAlign: TextAlign.center,
           ),
-          Text(human.name),
+          Text(human.firstName),
         ],
       )),
     );

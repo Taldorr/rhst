@@ -4,6 +4,7 @@ import 'package:rhst/constants.dart';
 import 'package:rhst/styles.dart';
 import 'package:rhst/widgets/rhst_appbar.dart';
 import 'package:rhst/widgets/rhst_card.dart';
+import 'package:rhst/widgets/rhst_spacer.dart';
 
 import 'rhst_menu_button.dart';
 
@@ -12,75 +13,95 @@ class MenuBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firstName = context.read<AuthBloc>().state.settings?.firstName ?? "";
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        RHSTAppBar(
-          onBack: () => context.read<AuthBloc>().add(const LogoutAuthEvent()),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(Constants.defaultSpace * 4),
-          child: RHSTCard(
-            inverse: true,
-            child: SizedBox(
-              height: 200,
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        final firstName = state.settings?.firstName ?? "";
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            RHSTAppBar(
+              onBack: () => context.read<AuthBloc>().add(const LogoutAuthEvent()),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(Constants.defaultSpace * 2),
+              child: RHSTCard(
+                inverse: true,
+                child: SizedBox(
+                  height: 150,
+                  child: Padding(
+                    padding: const EdgeInsets.all(Constants.defaultSpace * 2.5),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Hey $firstName!", style: Styles.headline),
+                        Text(
+                          "Was steht als nächstes an?",
+                          style: Styles.paragraph,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(Constants.defaultSpace * 2.5),
+                padding: const EdgeInsets.only(
+                  left: Constants.defaultSpace * 2,
+                  right: Constants.defaultSpace * 2,
+                  bottom: Constants.defaultSpace * 2,
+                ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Hey $firstName!", style: Styles.headline),
-                    Text(
-                      "Was steht als nächstes an?",
-                      style: Styles.paragraph,
-                    )
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          RHSTMenuButton(
+                            label: "Staffelkalender",
+                            route: "appointments",
+                            iconPath: "assets/icons/calendar.png",
+                            isDisabled: true,
+                          ),
+                          RHSTSpacer(2),
+                          RHSTMenuButton(
+                            label: "Gruppenchat",
+                            route: "chat",
+                            iconPath: "assets/icons/pencil.png",
+                            isDisabled: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const RHSTSpacer(2),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          RHSTMenuButton(
+                            label: "Bereitschaft",
+                            route: "attendance",
+                            iconPath: "assets/icons/alarm_bell.png",
+                          ),
+                          RHSTSpacer(2),
+                          RHSTMenuButton(
+                            label: "Mitglieder",
+                            route: "profiles",
+                            iconPath: "assets/icons/users.png",
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-          ),
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              Expanded(
-                child: Row(
-                  children: const [
-                    RHSTMenuButton(
-                      label: "Staffelkalender",
-                      route: "appointments",
-                      iconPath: "assets/icons/calendar.png",
-                    ),
-                    RHSTMenuButton(
-                      label: "Gruppenchat",
-                      route: "chat",
-                      iconPath: "assets/icons/pencil.png",
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  children: const [
-                    RHSTMenuButton(
-                      label: "Bereitschaft",
-                      route: "attendance",
-                      iconPath: "assets/icons/alarm_bell.png",
-                    ),
-                    RHSTMenuButton(
-                      label: "Mitglieder",
-                      route: "profiles",
-                      iconPath: "assets/icons/users.png",
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

@@ -45,9 +45,17 @@ class UserUpdatedAuthEvent extends AuthEvent {
   List<Object> get props => [];
 }
 
-class UpdateSettingsAuthEventEvent extends AuthEvent {
+class LoadSettingsAuthEvent extends AuthEvent {
+  final String userId;
+  const LoadSettingsAuthEvent(this.userId);
+
+  @override
+  List<Object> get props => [userId];
+}
+
+class UpdateSettingsAuthEvent extends AuthEvent {
   final UserSettings settings;
-  const UpdateSettingsAuthEventEvent(this.settings);
+  const UpdateSettingsAuthEvent(this.settings);
 
   @override
   List<Object> get props => [settings];

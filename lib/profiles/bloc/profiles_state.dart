@@ -1,15 +1,19 @@
 part of 'profiles_bloc.dart';
 
 class ProfilesState extends Equatable {
-  const ProfilesState({this.profiles = const []});
+  const ProfilesState({this.profiles = const [], this.isLoading = false});
 
-  final List<Dogteam> profiles;
+  final bool isLoading;
+  final List<Human> profiles;
 
   @override
-  List<Object?> get props => [profiles];
+  List<Object?> get props => [profiles, isLoading];
 
-  ProfilesState copyWith({List<Dogteam>? profiles}) {
-    return ProfilesState(profiles: profiles ?? this.profiles);
+  ProfilesState copyWith({List<Human>? profiles, bool? isLoading}) {
+    return ProfilesState(
+      profiles: profiles ?? this.profiles,
+      isLoading: isLoading ?? this.isLoading,
+    );
   }
 }
 

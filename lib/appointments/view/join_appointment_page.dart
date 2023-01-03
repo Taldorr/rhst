@@ -2,12 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:rhst/appointments/bloc/appointments_bloc.dart';
-
 import 'package:rhst/appointments/models/appointment.dart';
 import 'package:rhst/appointments/models/carpool.dart';
 import 'package:rhst/auth/auth.dart';
 import 'package:rhst/profiles/models/dog.dart';
-import 'package:rhst/profiles/profiles.dart';
 import 'package:rhst/util/formatter.dart';
 import 'package:rhst/util/snackbar_service.dart';
 import 'package:rhst/widgets/rhst_datetime_selection.dart';
@@ -18,7 +16,7 @@ class JoinAppointmentPage extends StatelessWidget {
 
   List<Dog> _getAvailableDogs(BuildContext context) {
     final currUserId = context.read<AuthBloc>().state.user!.uid;
-    return context.read<ProfilesBloc>().getTeamByHumanId(currUserId)?.dogs ?? [];
+    return []; // context.read<ProfilesBloc>().getTeamByHumanId(currUserId)?.dogs ?? [];
   }
 
   _onSubmit(BuildContext context, Map<String, dynamic> values, Appointment appointment) {

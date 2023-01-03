@@ -2,19 +2,40 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:rhst/util/snackbar_service.dart';
+import 'package:uuid/uuid.dart';
+
+import 'logger.dart';
 
 class StorageService {
-  static Future<FirebaseFile> resolveFile(String path) async {
-    final ref = FirebaseStorage.instance.ref(path);
-    return FirebaseFile(name: ref.name, ref: ref, url: await ref.getDownloadURL());
+  static String dogProfilePicturePath(String dogId) => "dogs/avatars/$dogId";
+
+  static String galleryCollectionPath(String humanId, String uuid) => "gallery/$humanId/$uuid";
+
+  static Future<FirebaseFile?> resolveFile(String path) async {
+    try {
+      final ref = FirebaseStorage.instance.ref(path);
+      return FirebaseFile(name: ref.name, ref: ref, url: await ref.getDownloadURL());
+    } catch (e) {
+      Logger.log(e);
+      return null;
+    }
   }
 
-  static UploadTask? uploadProfilePicture(String userId, File file) {
+  static UploadTask? uploadHumanProfilePicture(String userId, File file) =>
+      _uploadPicture("avatars/$userId", file);
+
+  static UploadTask? uploadDogProfilePicture(String dogId, File file) =>
+      _uploadPicture(dogProfilePicturePath(dogId), file);
+
+  static UploadTask? uploadGalleryPicture(String humanId, File file) =>
+      _uploadPicture(galleryCollectionPath(humanId, const Uuid().v4()), file);
+
+  static UploadTask? _uploadPicture(String path, File file) {
     try {
-      final ref = FirebaseStorage.instance.ref("avatars/$userId");
+      final ref = FirebaseStorage.instance.ref(path);
       return ref.putFile(file, SettableMetadata());
     } on FirebaseException catch (e) {
-      print(e);
+      Logger.log(e);
       SnackbarService().display("Upload fehlgeschlagen");
       return null;
     }

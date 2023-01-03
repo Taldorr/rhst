@@ -40,7 +40,7 @@ class ForgotPasswordPage extends StatelessWidget {
               children: [
                 RHSTForm(
                   onSubmit: (values) => _onSubmit(context, values),
-                  buttonLabel: "Reset Password",
+                  buttonLabel: "Passwort zurücksetzen",
                   children: [
                     RHSTTextInput(
                       name: "email",

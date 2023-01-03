@@ -16,24 +16,29 @@ class RHSTScrollablePageWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navBarHeight = showNavbar ? 100 : 0;
-    final contentHeight = MediaQuery.of(context).size.height - (3 * padding) - navBarHeight;
-    return Scaffold(
-      backgroundColor: RHSTColors.neutral[100],
-      body: SafeArea(
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              child: SizedBox(
-                height: contentHeight,
-                child: Padding(
-                  padding: const EdgeInsets.all(padding),
-                  child: child,
+    final navBarHeight = showNavbar ? 90 : 0;
+    final systemOverlayHeight = MediaQuery.of(context).viewPadding.top;
+    final contentHeight = MediaQuery.of(context).size.height - navBarHeight - systemOverlayHeight;
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: RHSTColors.neutral[100],
+        body: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: SingleChildScrollView(
+            physics: const PageScrollPhysics(),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: contentHeight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(padding),
+                    child: child,
+                  ),
                 ),
-              ),
+                if (showNavbar) const RHSTNavbar(),
+              ],
             ),
-            if (showNavbar) const RHSTNavbar(),
-          ],
+          ),
         ),
       ),
     );

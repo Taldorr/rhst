@@ -4,9 +4,11 @@ import 'package:equatable/equatable.dart';
 import 'package:rhst/appointments/models/appointment.dart';
 import 'package:rhst/appointments/models/carpool.dart';
 import 'package:rhst/appointments/repositories/appointments_repository.dart';
+import 'package:rhst/util/logger.dart';
 import 'package:rhst/util/snackbar_service.dart';
 
 import 'bloc.dart';
+
 part 'appointments_event.dart';
 part 'appointments_state.dart';
 
@@ -46,7 +48,7 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
     try {
       return _appointmentRepository.getCarpoolsOfAppointment(appointmentId);
     } catch (e) {
-      print(e);
+      Logger.log(e);
       SnackbarService().display("Ein Fehler ist aufgetreten: $e", isError: true);
       return [];
     }
@@ -62,7 +64,7 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
         carpool: carpool,
       );
     } catch (e) {
-      print(e);
+      Logger.log(e);
       SnackbarService().display("Ein Fehler ist aufgetreten: $e", isError: true);
     }
   }
